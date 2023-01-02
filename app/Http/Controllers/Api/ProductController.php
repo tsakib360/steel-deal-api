@@ -44,12 +44,21 @@ class ProductController extends Controller
         return $this->SuccessResponse(200,'Product added successfully ..!');
     }
 
-    public function product_names(){
-        $products= Product::latest()->get()->map(function($product){
-            $product['size']= $product->size;
-            unset($product['size_id']);
-            return $product;
-        });
+    public function product_names(Request $request){
+        if(!is_null($request->get('limit'))) {
+            $products= tap(Product::latest()->with('shop', 'size', 'instock')->paginate($request->limit))->transform(function($product){
+                $product['size']= $product->size;
+                unset($product['size_id']);
+                return $product;
+            });
+        }else{
+            $products= Product::latest()->with('shop', 'size', 'instock')->get()->map(function($product){
+                $product['size']= $product->size;
+                unset($product['size_id']);
+                return $product;
+            });
+        }
+
         return $this->response($products);
     }
 

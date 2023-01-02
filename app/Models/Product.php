@@ -19,4 +19,8 @@ class Product extends Model
         return $this->belongsTo(Size::class, 'size_id');
     }
 
+    public function shop(){
+        return $this->belongsTo(Shop::class, 'shop_id');
+    }
+
 }
