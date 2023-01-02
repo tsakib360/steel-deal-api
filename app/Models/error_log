@@ -1,0 +1,56 @@
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Instock.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Instock.php on line 10
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Product.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Product.php on line 8
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Verification.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Verification.php on line 8
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Instock.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Instock.php on line 10
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Shop.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Shop.php on line 10
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/solurvdm/steel.solutions1313.host/app/Models/User.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/User.php on line 13
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Product.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Product.php on line 8
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Verification.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Verification.php on line 8
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Size.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Size.php on line 8
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Shop.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Shop.php on line 10
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/solurvdm/steel.solutions1313.host/app/Models/User.php:13
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/User.php on line 13
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Instock.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Instock.php on line 10
+[12-Dec-2022 01:29:29 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Product.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Product.php on line 8
+[12-Dec-2022 01:29:29 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Model" not found in /home/solurvdm/steel.solutions1313.host/app/Models/Verification.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Models/Verification.php on line 8

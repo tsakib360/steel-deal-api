@@ -1,0 +1,12 @@
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Factories\Factory" not found in /home/solurvdm/steel.solutions1313.host/database/factories/UserFactory.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/factories/UserFactory.php on line 11
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Factories\Factory" not found in /home/solurvdm/steel.solutions1313.host/database/factories/UserFactory.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/factories/UserFactory.php on line 11
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Eloquent\Factories\Factory" not found in /home/solurvdm/steel.solutions1313.host/database/factories/UserFactory.php:11
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/factories/UserFactory.php on line 11

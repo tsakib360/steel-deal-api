@@ -1,0 +1,188 @@
+[12-Dec-2022 01:29:19 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/app.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/app.php on line 18
+[12-Dec-2022 01:29:20 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/app.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/app.php on line 18
+[12-Dec-2022 01:29:20 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/solurvdm/steel.solutions1313.host/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/view.php on line 17
+[12-Dec-2022 01:29:21 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/broadcasting.php on line 18
+[12-Dec-2022 01:29:21 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/session.php on line 21
+[12-Dec-2022 01:29:21 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/mail.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/mail.php on line 16
+[12-Dec-2022 01:29:21 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/solurvdm/steel.solutions1313.host/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/view.php on line 17
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/cache.php on line 18
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/broadcasting.php on line 18
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/services.php on line 18
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/app.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/app.php on line 18
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/mail.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/mail.php on line 16
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/session.php on line 21
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/cache.php on line 18
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/sanctum.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/sanctum.php on line 18
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/services.php on line 18
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/database.php on line 18
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/solurvdm/steel.solutions1313.host/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/view.php on line 17
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/queue.php on line 16
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/broadcasting.php on line 18
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/sanctum.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/sanctum.php on line 18
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/mail.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/mail.php on line 16
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/database.php on line 18
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/session.php on line 21
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/filesystems.php on line 16
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/queue.php on line 16
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/cache.php on line 18
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/services.php on line 18
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/hashing.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/hashing.php on line 32
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/filesystems.php on line 16
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/app.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/app.php on line 18
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/sanctum.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/sanctum.php on line 18
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/database.php on line 18
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/logging.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/logging.php on line 20
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/hashing.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/hashing.php on line 32
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/queue.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/queue.php on line 16
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function resource_path() in /home/solurvdm/steel.solutions1313.host/config/view.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/view.php on line 17
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/logging.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/logging.php on line 20
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/filesystems.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/filesystems.php on line 16
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/broadcasting.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/broadcasting.php on line 18
+[12-Dec-2022 01:29:29 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/mail.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/mail.php on line 16
+[12-Dec-2022 01:29:29 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/session.php:21
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/session.php on line 21
+[12-Dec-2022 01:29:29 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/hashing.php:32
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/hashing.php on line 32
+[12-Dec-2022 01:29:29 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/cache.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/cache.php on line 18
+[12-Dec-2022 01:29:30 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/services.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/services.php on line 18
+[12-Dec-2022 01:29:31 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/sanctum.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/sanctum.php on line 18
+[12-Dec-2022 01:29:31 America/New_York] PHP Fatal error:  Uncaught Error: Call to undefined function env() in /home/solurvdm/steel.solutions1313.host/config/database.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/config/database.php on line 18

@@ -1,0 +1,16 @@
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Exceptions\Handler" not found in /home/solurvdm/steel.solutions1313.host/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Exceptions/Handler.php on line 8
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Exceptions\Handler" not found in /home/solurvdm/steel.solutions1313.host/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Exceptions/Handler.php on line 8
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Exceptions\Handler" not found in /home/solurvdm/steel.solutions1313.host/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Exceptions/Handler.php on line 8
+[12-Dec-2022 01:29:31 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Exceptions\Handler" not found in /home/solurvdm/steel.solutions1313.host/app/Exceptions/Handler.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Exceptions/Handler.php on line 8

@@ -1,0 +1,1 @@
+[10-Dec-2022 09:40:24 UTC] PHP Fatal error:  Declaration of Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection::jsonSerialize() must be compatible with Illuminate\Support\Collection::jsonSerialize(): array in /home/solurvdm/steel.solutions1313.host/vendor/spatie/laravel-medialibrary/src/MediaCollections/Models/Collections/MediaCollection.php on line 51

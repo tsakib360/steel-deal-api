@@ -1,0 +1,16 @@
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Testing\TestCase" not found in /home/solurvdm/steel.solutions1313.host/tests/TestCase.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/tests/TestCase.php on line 7
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Testing\TestCase" not found in /home/solurvdm/steel.solutions1313.host/tests/TestCase.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/tests/TestCase.php on line 7
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Testing\TestCase" not found in /home/solurvdm/steel.solutions1313.host/tests/TestCase.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/tests/TestCase.php on line 7
+[12-Dec-2022 01:29:30 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Testing\TestCase" not found in /home/solurvdm/steel.solutions1313.host/tests/TestCase.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/tests/TestCase.php on line 7

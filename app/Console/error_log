@@ -1,0 +1,16 @@
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Console\Kernel" not found in /home/solurvdm/steel.solutions1313.host/app/Console/Kernel.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Console/Kernel.php on line 8
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Console\Kernel" not found in /home/solurvdm/steel.solutions1313.host/app/Console/Kernel.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Console/Kernel.php on line 8
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Console\Kernel" not found in /home/solurvdm/steel.solutions1313.host/app/Console/Kernel.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Console/Kernel.php on line 8
+[12-Dec-2022 01:29:30 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Console\Kernel" not found in /home/solurvdm/steel.solutions1313.host/app/Console/Kernel.php:8
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/app/Console/Kernel.php on line 8

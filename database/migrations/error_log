@@ -1,0 +1,28 @@
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/solurvdm/steel.solutions1313.host/database/migrations/2022_12_10_060101_create_instocks_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/migrations/2022_12_10_060101_create_instocks_table.php on line 7
+[12-Dec-2022 01:29:27 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_000000_create_users_table.php on line 7
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_100000_create_password_resets_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_100000_create_password_resets_table.php on line 7
+[12-Dec-2022 01:29:28 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/solurvdm/steel.solutions1313.host/database/migrations/2022_12_10_060101_create_instocks_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/migrations/2022_12_10_060101_create_instocks_table.php on line 7
+[12-Dec-2022 01:29:29 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Database\Migrations\Migration" not found in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_000000_create_users_table.php:7
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/database/migrations/2014_10_12_000000_create_users_table.php on line 7

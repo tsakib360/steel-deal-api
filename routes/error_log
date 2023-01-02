@@ -1,0 +1,64 @@
+[12-Dec-2022 01:29:21 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/solurvdm/steel.solutions1313.host/routes/api.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/api.php on line 18
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Broadcast" not found in /home/solurvdm/steel.solutions1313.host/routes/channels.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/channels.php on line 16
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/solurvdm/steel.solutions1313.host/routes/web.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/web.php on line 16
+[12-Dec-2022 01:29:22 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/solurvdm/steel.solutions1313.host/routes/api.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/api.php on line 18
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Artisan" not found in /home/solurvdm/steel.solutions1313.host/routes/console.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/console.php on line 17
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Broadcast" not found in /home/solurvdm/steel.solutions1313.host/routes/channels.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/channels.php on line 16
+[12-Dec-2022 01:29:23 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/solurvdm/steel.solutions1313.host/routes/web.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/web.php on line 16
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Artisan" not found in /home/solurvdm/steel.solutions1313.host/routes/console.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/console.php on line 17
+[12-Dec-2022 01:29:24 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/solurvdm/steel.solutions1313.host/routes/api.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/api.php on line 18
+[12-Dec-2022 01:29:25 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Broadcast" not found in /home/solurvdm/steel.solutions1313.host/routes/channels.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/channels.php on line 16
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/solurvdm/steel.solutions1313.host/routes/web.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/web.php on line 16
+[12-Dec-2022 01:29:26 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Artisan" not found in /home/solurvdm/steel.solutions1313.host/routes/console.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/console.php on line 17
+[12-Dec-2022 01:29:29 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/solurvdm/steel.solutions1313.host/routes/api.php:18
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/api.php on line 18
+[12-Dec-2022 01:29:30 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Broadcast" not found in /home/solurvdm/steel.solutions1313.host/routes/channels.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/channels.php on line 16
+[12-Dec-2022 01:29:30 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home/solurvdm/steel.solutions1313.host/routes/web.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/web.php on line 16
+[12-Dec-2022 01:29:31 America/New_York] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Artisan" not found in /home/solurvdm/steel.solutions1313.host/routes/console.php:17
+Stack trace:
+#0 {main}
+  thrown in /home/solurvdm/steel.solutions1313.host/routes/console.php on line 17
