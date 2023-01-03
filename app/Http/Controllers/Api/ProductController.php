@@ -46,7 +46,7 @@ class ProductController extends Controller
 
     public function product_names(Request $request){
         if(!is_null($request->get('limit'))) {
-            $products= tap(Product::latest()->with('shop', 'size', 'instock')->paginate($request->limit))->transform(function($product){
+            $products= tap(Product::latest()->with('shop', 'size', 'instock')->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
                 $product['size']= $product->size;
                 unset($product['size_id']);
                 return $product;
