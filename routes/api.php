@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::group(['prefix' =>'admin'],function(){
        Route::get('home',[HomeController::class,'home']);
        Route::get('product/name',[ProductController::class,'product_names']);
+       Route::post('product/add',[ProductController::class,'add_product']);
     });
 
 });
