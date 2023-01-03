@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::get('home',[HomeController::class,'home']);
        Route::get('product/name',[ProductController::class,'product_names']);
        Route::post('product/add',[ProductController::class,'add_product']);
+       Route::get('customers',[UserController::class,'all_customers']);
     });
 
 });
