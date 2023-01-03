@@ -45,6 +45,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::get('product/name',[ProductController::class,'product_names']);
        Route::post('product/add',[ProductController::class,'add_product']);
        Route::get('customers',[UserController::class,'all_customers']);
+       Route::get('drivers',[UserController::class,'all_drivers']);
+       Route::get('sellers',[UserController::class,'all_sellers']);
     });
 
 });

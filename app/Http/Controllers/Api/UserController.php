@@ -22,4 +22,32 @@ class UserController extends Controller
 
         return $this->response($products);
     }
+    public function all_drivers(Request $request)
+    {
+        if(!is_null($request->get('limit'))) {
+            $products= tap(User::latest()->where('role', 5)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
+                return $product;
+            });
+        }else{
+            $products= User::latest()->where('role', 5)->get()->map(function($product){
+                return $product;
+            });
+        }
+
+        return $this->response($products);
+    }
+    public function all_sellers(Request $request)
+    {
+        if(!is_null($request->get('limit'))) {
+            $products= tap(User::latest()->where('role', 3)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
+                return $product;
+            });
+        }else{
+            $products= User::latest()->where('role', 3)->get()->map(function($product){
+                return $product;
+            });
+        }
+
+        return $this->response($products);
+    }
 }
