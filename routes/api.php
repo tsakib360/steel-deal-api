@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::get('banner/list',[\App\Http\Controllers\Api\BannerController::class,'get_banner']);
         Route::get('product/name',[\App\Http\Controllers\Api\ProductController::class,'product_names']);
         Route::get('stock/list',[\App\Http\Controllers\Api\InstockController::class,'buyer_product_list']);
+        Route::post('cart',[OrderController::class,'cart']);
+        Route::post('checkout',[OrderController::class,'checkout']);
     });
 
     Route::group(['prefix' =>'admin'],function(){
