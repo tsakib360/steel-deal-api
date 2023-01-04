@@ -55,7 +55,7 @@ class InstockController extends Controller
         if($request->hasFile('product_image')){
 
             foreach ($request->file('product_image') as $image){
-                $instock->addMedia($image)->toMediaCollection('product','thumb');
+                $instock->addMedia($image)->toMediaCollection('product');
             }
 
         }
