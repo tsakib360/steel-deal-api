@@ -48,12 +48,22 @@ class ProductController extends Controller
         if(!is_null($request->get('limit'))) {
             $products= tap(Product::latest()->with('shop', 'size', 'instock')->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
                 $product['size']= $product->size;
+                if(!is_null($product->instock)) {
+                    $images=collect();
+                    foreach ($product->instock->getMedia('product') as $img){
+                        $images->push($img->getFullUrl());
+                    }
+                    $product['instock']['images']= $images;
+                    unset($product['instock']['media']);
+                }
+
                 unset($product['size_id']);
                 return $product;
             });
         }else{
             $products= Product::latest()->with('shop', 'size', 'instock')->get()->map(function($product){
                 $product['size']= $product->size;
+                $product['image']= $product->instock;
                 unset($product['size_id']);
                 return $product;
             });
