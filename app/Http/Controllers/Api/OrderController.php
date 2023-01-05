@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Instock;
 use App\Models\Order;
 use App\Models\OrderItem;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -114,5 +115,22 @@ class OrderController extends Controller
             return $this->generateOrderNumber();
         }
         return $number;
+    }
+
+    public function orderList(Request$request)
+    {
+        if(!is_null($request->get('limit'))) {
+            $orders= tap(Order::latest()->paginate($request->limit)->appends('limit', $request->limit))->transform(function($order){
+                $order['order_date'] = Carbon::parse($order->created_at)->toDateString();
+                return $order;
+            });
+        }else{
+            $orders= Order::latest()->get()->map(function($order){
+                $order['order_date'] = Carbon::parse($order->created_at)->toDateString();
+                return $order;
+            });
+        }
+
+        return $this->response($orders);
     }
 }

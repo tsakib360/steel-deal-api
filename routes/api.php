@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::get('customers',[UserController::class,'all_customers']);
        Route::get('drivers',[UserController::class,'all_drivers']);
        Route::get('sellers',[UserController::class,'all_sellers']);
+       Route::get('orders',[OrderController::class,'orderList']);
     });
 
 });
