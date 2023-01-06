@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::get('drivers',[UserController::class,'all_drivers']);
        Route::get('sellers',[UserController::class,'all_sellers']);
        Route::get('orders',[OrderController::class,'orderList']);
+       Route::get('transactions',[TransactionController::class,'transactionList']);
     });
 
 });
