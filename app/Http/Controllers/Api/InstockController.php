@@ -62,26 +62,48 @@ class InstockController extends Controller
         return $this->SuccessResponse(200,'Product added successfully ..!');
     }
 
-    public function get_stock(){
-        $data= Instock::where('user_id',auth()->id())->where('status',true)->get()->map(function($listing){
-            $images=collect();
-            foreach ($listing->getMedia('product') as $img){
-                 $images->push($img->getFullUrl());
-            }
-            $listing['user_name']= $listing->user->name;
-            $listing['size_name']= $listing->size->size;
-            $listing['product_name']= $listing->product->name;
-            $listing['image']=$images;
-            unset($listing['user']);
-            unset($listing['user_id']);
-            unset($listing['size']);
-            unset($listing['size_id']);
-            unset($listing['product_id']);
-            unset($listing['product']);
-            unset($listing['shop_id']);
-            unset($listing['media']);
+    public function get_stock(Request $request){
+        if(!is_null($request->get('limit'))) {
+            $data= tap(Instock::where('user_id',auth()->id())->where('status',true)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
+                $images=collect();
+                foreach ($listing->getMedia('product') as $img){
+                    $images->push($img->getFullUrl());
+                }
+                $listing['user_name']= $listing->user->name;
+                $listing['size_name']= $listing->size->size;
+                $listing['product_name']= $listing->product->name;
+                $listing['image']=$images;
+                unset($listing['user']);
+                unset($listing['user_id']);
+                unset($listing['size']);
+                unset($listing['size_id']);
+                unset($listing['product_id']);
+                unset($listing['product']);
+                unset($listing['shop_id']);
+                unset($listing['media']);
                 return $listing;
-        });
+            });
+        }else{
+            $data= Instock::where('user_id',auth()->id())->where('status',true)->get()->map(function($listing){
+                $images=collect();
+                foreach ($listing->getMedia('product') as $img){
+                    $images->push($img->getFullUrl());
+                }
+                $listing['user_name']= $listing->user->name;
+                $listing['size_name']= $listing->size->size;
+                $listing['product_name']= $listing->product->name;
+                $listing['image']=$images;
+                unset($listing['user']);
+                unset($listing['user_id']);
+                unset($listing['size']);
+                unset($listing['size_id']);
+                unset($listing['product_id']);
+                unset($listing['product']);
+                unset($listing['shop_id']);
+                unset($listing['media']);
+                return $listing;
+            });
+        }
 
      return $this->response($data);
     }

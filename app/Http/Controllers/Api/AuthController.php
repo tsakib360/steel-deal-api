@@ -132,9 +132,66 @@ public function register(Request $request){
         return $this->SuccessResponse(200,'Login successfully ..!',$user);
     }
 
+    public function loginSeller(Request $request)
+    {
+        $validate= Validator::make($request->all(),[
+            'username'=>'required'
+        ],[
+            'username.required'=>'Please enter Email or Mobile ..'
+        ]);
+        if($validate->fails()){
+            return  $this->ErrorResponse(400,$validate->errors()->first());
+        }
+        $user = User::where('email', $request->username)->orWhere('phone', $request->username)->first();
+        if (is_null($user)) {
+            return $this->ErrorResponse('400', 'invalid user..!');
+        }
+        if ($user->role != 3) {
+            return $this->ErrorResponse('400', 'You are not a seller..!');
+        }
+//        $otp = rand(99999, 999999);
+        $otp= '123456';
+        $verify = Verification::create([
+            'username' => $request->username,
+            'otp' => $otp,
+            'is_expire' => false,
+            'token' => str::random(60)
+        ]);
+        if (!$verify) {
+            return $this->ErrorResponse(400, 'Something went wrong. While sending otp.! ');
+        }
+        return $this->SuccessResponse(200,'OTP sent  to your register Email/Phone ..!',$verify['token']);
+    }
+
+    public function verify_otp_seller(Request $request){
+        $validate= Validator::make($request->all(),[
+            'token'=> 'required',
+            'otp'=>'required',
+        ]);
+
+        if($validate->fails()){
+            return  $this->ErrorResponse(400,$validate->errors());
+        }
+        $verify= Verification::where(['token'=>$request->token,'otp'=>$request->otp])->where('created_at', '>=', Carbon::now()->subMinutes(10)->toDateTimeString())->where('is_expire', '=', false)->first();
+        if (!$verify) {
+            return $this->ErrorResponse(400, 'Something went wrong.or OTP expire please try again');
+        }
+        $user= User::where('email',$verify->username)->orWhere('phone',$verify->username)->first();
+        if (!$user) {
+            return $this->ErrorResponse('400', 'invalid user..!');
+        }
+        if ($user->role != 3) {
+            return $this->ErrorResponse('400', 'You are not a seller..!');
+        }
+        $verify->delete();
+        $user['token']='Bearer ' . $user->createToken('auth_token')->plainTextToken;
+        return $this->SuccessResponse(200,'Login successfully ..!',$user);
+    }
+
     public function logout()
     {
         auth()->user()->tokens()->delete();
+//        auth()->user()->tokens()->revoke();
         return $this->SuccessResponse(200, 'You have successfully logged out', null);
     }
 

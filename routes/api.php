@@ -24,9 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('logout',[\App\Http\Controllers\Api\AuthController::class,'logout']);
     Route::group(['prefix'=>'seller'],function(){
-        Route::post('product/add',[\App\Http\Controllers\Api\ProductController::class,'add_product']);
-        Route::get('product/name',[\App\Http\Controllers\Api\ProductController::class,'product_names']);
+        Route::post('product/add',[ProductController::class,'add_product']);
+        Route::get('product/list',[ProductController::class,'productListSeller']);
         Route::get('size',[\App\Http\Controllers\Api\SizeController::class,'size']);
         Route::post('shop',[\App\Http\Controllers\Api\ShopController::class,'shop']);
         Route::get('my/shop',[\App\Http\Controllers\Api\ShopController::class,'get_self_shop']);
@@ -59,5 +60,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::post('register',[\App\Http\Controllers\Api\AuthController::class,'register']);
 Route::post('login',[\App\Http\Controllers\Api\AuthController::class,'login']);
 Route::post('validate/otp',[\App\Http\Controllers\Api\AuthController::class,'verify_otp']);
-Route::post('logout',[\App\Http\Controllers\Api\AuthController::class,'logout']);
 Route::get('authentication',[AuthController::class,'authentication'])->name('authentication');
+
+Route::group(['prefix'=>'seller'],function(){
+    Route::post('login',[AuthController::class,'loginSeller']);
+    Route::post('validate/otp',[AuthController::class,'verify_otp_seller']);
+    Route::post('logout',[AuthController::class,'logout']);
+});
