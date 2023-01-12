@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('stock/list',[\App\Http\Controllers\Api\InstockController::class,'get_stock']);
         Route::post('stock/delete/{id}',[\App\Http\Controllers\Api\InstockController::class,'delete_stock']);
         Route::post('stock/update',[\App\Http\Controllers\Api\InstockController::class,'update_stock']);
+
+        //Category
+        Route::post('category/add',[CategoryController::class,'addCategorySeller']);
+        Route::get('category/list',[CategoryController::class,'getCategory']);
+
+        //Sub Category
+        Route::post('sub-category/add',[CategoryController::class,'addSubCategorySeller']);
+        Route::get('sub-category/list',[CategoryController::class,'getSubCategory']);
     });
 
     Route::group(['prefix' =>'buyer'],function(){
