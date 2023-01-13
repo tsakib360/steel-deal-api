@@ -50,10 +50,11 @@ class CategoryController extends Controller
 
     public function getCategory(Request $request){
         if(!is_null($request->get('limit'))) {
-            $data= tap(Category::where('user_id',auth()->id())->where('status',true)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
+            $data= tap(Category::where('user_id',auth()->id())->where('parent_id', null)->where('status',true)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
                 unset($listing['image']);
                 unset($listing['status']);
                 unset($listing['user_id']);
+                unset($listing['parent_id']);
                 unset($listing['created_at']);
                 unset($listing['updated_at']);
                 return $listing;
@@ -63,6 +64,7 @@ class CategoryController extends Controller
                 unset($listing['image']);
                 unset($listing['status']);
                 unset($listing['user_id']);
+                unset($listing['parent_id']);
                 unset($listing['created_at']);
                 unset($listing['updated_at']);
                 return $listing;
@@ -92,10 +94,10 @@ class CategoryController extends Controller
             return  $this->ErrorResponse(400,'You are not a seller ..!');
         }
 
-        $category=SubCategory::create([
+        $category=Category::create([
             'name' =>$request->name,
             'user_id' =>auth()->id(),
-            'category_id' =>$request->category_id,
+            'parent_id' =>$request->category_id,
             'description'=>$request->description,
         ]);
 
@@ -116,20 +118,36 @@ class CategoryController extends Controller
 
     public function getSubCategory(Request $request){
         if(!is_null($request->get('limit'))) {
-            $data= tap(SubCategory::where('user_id',auth()->id())->where('status',true)->with('category')->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
+            $data= tap(Category::where('user_id',auth()->id())->where('parent_id', '!=', null)->where('status',true)->with('category')->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
                 unset($listing['image']);
                 unset($listing['status']);
                 unset($listing['user_id']);
+                unset($listing['parent_id']);
+                unset($listing['category']['parent_id']);
+                unset($listing['category']['created_at']);
+                unset($listing['category']['updated_at']);
+                unset($listing['category']['user_id']);
+                unset($listing['category']['description']);
+                unset($listing['category']['image']);
+                unset($listing['category']['status']);
                 unset($listing['created_at']);
                 unset($listing['updated_at']);
                 unset($listing['category_id']);
                 return $listing;
             });
         }else{
-            $data= SubCategory::where('user_id',auth()->id())->where('status',true)->with('category')->get()->map(function($listing){
+            $data= Category::where('user_id',auth()->id())->where('parent_id', '!=', null)->where('status',true)->with('category')->get()->map(function($listing){
                 unset($listing['image']);
                 unset($listing['status']);
                 unset($listing['user_id']);
+                unset($listing['parent_id']);
+                unset($listing['category']['parent_id']);
+                unset($listing['category']['created_at']);
+                unset($listing['category']['updated_at']);
+                unset($listing['category']['user_id']);
+                unset($listing['category']['description']);
+                unset($listing['category']['image']);
+                unset($listing['category']['status']);
                 unset($listing['created_at']);
                 unset($listing['updated_at']);
                 unset($listing['category_id']);

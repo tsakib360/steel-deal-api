@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->foreignId('parent_id')->index()->nullable()->references('id')->on('categories')->cascadeOnUpdate()->cascadeOnDelete();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
