@@ -49,6 +49,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Shop
         Route::get('shop-time',[ShopController::class,'getShopTime']);
         Route::post('update-shop-time',[ShopController::class,'updateShopTime']);
+
+        //Offer
+        Route::post('offer/list',[ProductController::class,'offerList']);
     });
 
     Route::group(['prefix' =>'buyer'],function(){
@@ -68,6 +71,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::get('sellers',[UserController::class,'all_sellers']);
        Route::get('orders',[OrderController::class,'orderList']);
        Route::get('transactions',[TransactionController::class,'transactionList']);
+
+       //Offer
+       Route::post('offer/add',[ProductController::class,'add_offer']);
     });
 
 });

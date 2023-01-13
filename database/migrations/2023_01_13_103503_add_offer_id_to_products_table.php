@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->foreignId('category_id')->index()->nullable()->after('user_id')->references('id')->on('categories')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('offer_id')->index()->nullable()->after('user_id')->references('id')->on('offers')->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
@@ -26,8 +26,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign('products_category_id_foreign');
-            $table->dropColumn('category_id');
+            $table->dropForeign('products_offer_id_foreign');
+            $table->dropColumn('offer_id');
         });
     }
 };
