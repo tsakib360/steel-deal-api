@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Shop;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,5 +73,28 @@ class ShopController extends Controller
         $shop['video']= $shop->getFirstMediaUrl('shop_video');
         unset($shop['media']);
         return $this->SuccessResponse(200,'Shop added successfully ..!',$shop);
+    }
+
+    public function getShopTime()
+    {
+        $shop= Shop::where('user_id',auth()->id())->first();
+        if(is_null($shop)) {
+            return $this->ErrorResponse(400,'No shop found ..!');
+        }
+        $data['open_time'] = Carbon::parse($shop->open_time)->format('g:i A');
+        $data['close_time'] = Carbon::parse($shop->close_time)->format('g:i A');
+        return $this->SuccessResponse(200,'Time fetch successfully..!',$data);
+    }
+
+    public function updateShopTime(Request $request)
+    {
+        $shop= Shop::where('user_id',auth()->id())->first();
+        if(is_null($shop)) {
+            return $this->ErrorResponse(400,'No shop found ..!');
+        }
+        $shop->open_time = !is_null($request->open_time) ? $request->open_time : 1;
+        $shop->close_time = !is_null($request->close_time) ? $request->close_time : 1;
+        $shop->save();
+        return $this->SuccessResponse(200,'Successfully updated ..!');
     }
 }

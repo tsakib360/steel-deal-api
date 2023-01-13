@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Sub Category
         Route::post('sub-category/add',[CategoryController::class,'addSubCategorySeller']);
         Route::get('sub-category/list',[CategoryController::class,'getSubCategory']);
+
+        //Shop
+        Route::get('shop-time',[ShopController::class,'getShopTime']);
+        Route::post('update-shop-time',[ShopController::class,'updateShopTime']);
     });
 
     Route::group(['prefix' =>'buyer'],function(){
