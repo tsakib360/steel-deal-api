@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout',[\App\Http\Controllers\Api\AuthController::class,'logout']);
     Route::group(['prefix'=>'seller'],function(){
+        //Product
         Route::post('product/add',[ProductController::class,'add_product']);
         Route::get('product/list',[ProductController::class,'productListSeller']);
         Route::get('size',[\App\Http\Controllers\Api\SizeController::class,'size']);
@@ -51,7 +52,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('update-shop-time',[ShopController::class,'updateShopTime']);
 
         //Offer
-        Route::post('offer/list',[ProductController::class,'offerList']);
+        Route::get('offer/list',[ProductController::class,'offerList']);
+        Route::post('offer/add/product/bulk',[ProductController::class,'offerAddBulkProduct']);
     });
 
     Route::group(['prefix' =>'buyer'],function(){
