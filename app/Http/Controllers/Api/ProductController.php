@@ -33,6 +33,7 @@ class ProductController extends Controller
            'user_id' =>auth()->id(),
            'name'=>$request->name,
            'size_id'=>$request->size,
+           'category_id'=>!is_null($request->category_id) ? $request->category_id : 1,
            'price'=>$request->price,
            'random'=>$request->random,
            'clear_cut'=>$request->clear_cut
