@@ -31,6 +31,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Product
         Route::post('product/add',[ProductController::class,'add_product']);
         Route::get('product/list',[ProductController::class,'productListSeller']);
+        Route::post('product/delete/{product_id}',[ProductController::class,'productDelete']);
+
+
         Route::get('size',[\App\Http\Controllers\Api\SizeController::class,'size']);
         Route::post('shop',[\App\Http\Controllers\Api\ShopController::class,'shop']);
         Route::get('my/shop',[\App\Http\Controllers\Api\ShopController::class,'get_self_shop']);

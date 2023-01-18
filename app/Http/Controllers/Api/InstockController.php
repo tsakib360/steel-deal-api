@@ -31,6 +31,9 @@ class InstockController extends Controller
         if(!Shop::where('user_id',auth()->id())->exists()){
             return  $this->ErrorResponse(400,'You don\'t have shop. Kindly create first to add product ..!');
         }
+        if(Instock::where('product_id', $request->product)->exists()){
+            return  $this->ErrorResponse(400,'Already have a stock ..!');
+        }
         $shop= Shop::where('user_id',auth()->id())->first();
 
         $instock=Instock::create([

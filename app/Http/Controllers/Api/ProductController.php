@@ -109,6 +109,24 @@ class ProductController extends Controller
         return $this->response($products);
     }
 
+    public function productDelete(Request $request, $product_id)
+    {
+        $product = Product::whereId($product_id)->first();
+        if(is_null($product)) {
+            return $this->ErrorResponse(400,'No product found ..!');
+        }
+        if(!is_null($request->get('restrictmode'))) {
+            if($request->restrictmode == 'true') {
+                if(Instock::where('product_id', $product->id)->exists()) {
+                    return $this->ErrorResponse(400,'You have stock of this product. ..!');
+                }
+            }
+
+        }
+        $product->delete();
+        return $this->SuccessResponse(200,'Product deleted successfully ..!');
+    }
+
     public function add_offer(Request $request){
         $validate= Validator::make($request->all(),[
             'name'=>'required',
