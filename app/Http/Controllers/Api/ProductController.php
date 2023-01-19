@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -44,6 +45,31 @@ class ProductController extends Controller
         }
 
         return $this->SuccessResponse(200,'Product added successfully ..!');
+    }
+
+    public function updateProduct(Request $request, $product_id)
+    {
+        DB::beginTransaction();
+        try {
+            $product = Product::whereId($product_id)->first();
+            if(is_null($product)){
+                return $this->ErrorResponse(400,'No product found ..!');
+            }
+            $product->update([
+                'name'=>!is_null($request->name) ? $request->name : $product->name,
+                'size_id'=>!is_null($request->size) ? $request->size : $product->size_id,
+                'category_id'=>!is_null($request->category_id) ? $request->category_id : $product->category_id,
+                'price'=>!is_null($request->price) ? $request->price : $product->price,
+                'random'=>!is_null($request->random) ? $request->random : $product->random,
+                'clear_cut'=>!is_null($request->clear_cut) ? $request->clear_cut : $product->clear_cut
+            ]);
+
+            DB::commit();
+            return $this->SuccessResponse(200,'Product updated successfully ..!');
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return $this->ErrorResponse(400,'Something went wrong ..!');
+        }
     }
 
     public function product_names(Request $request){
