@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Offer
         Route::get('offer/list',[ProductController::class,'offerList']);
         Route::post('offer/add/product/bulk',[ProductController::class,'offerAddBulkProduct']);
+
+        //Orders
+        Route::get('order/items',[OrderController::class,'orderItemListByShopID']);
     });
 
     Route::group(['prefix' =>'buyer'],function(){

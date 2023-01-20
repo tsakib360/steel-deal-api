@@ -91,7 +91,14 @@ class ProductController extends Controller
         }else{
             $products= Product::latest()->with('shop', 'size', 'instock')->get()->map(function($product){
                 $product['size']= $product->size;
-                $product['image']= $product->instock;
+                if(!is_null($product->instock)) {
+                    $images=collect();
+                    foreach ($product->instock->getMedia('product') as $img){
+                        $images->push($img->getFullUrl());
+                    }
+                    $product['instock']['images']= $images;
+                    unset($product['instock']['media']);
+                }
                 unset($product['size_id']);
                 return $product;
             });

@@ -7,6 +7,7 @@ use App\Models\Instock;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderNotification;
+use App\Models\Shop;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -165,5 +166,39 @@ class OrderController extends Controller
         }
 
         return $this->response($orders);
+    }
+
+    public function orderItemListByShopID()
+    {
+        $shop = Shop::where('user_id', Auth::id())->first();
+        if(is_null($shop)) {
+            return $this->ErrorResponse(400,'We did not find your shop. Please check your shop is available or not ..!');
+        }
+        $order_items = OrderItem::with('product', 'product.instock')->whereHas('product', function ($query) use($shop) {
+            $query->where('shop_id', $shop->id);
+        })->get()->map(function($order_item){
+            $order_item['size']= $order_item->size;
+            $order_item['buyer']= $order_item->user;
+            $order_item['order']= $order_item->order;
+            if(!is_null($order_item->product->instock)) {
+                $images=collect();
+                foreach ($order_item->product->instock->getMedia('product') as $img){
+                    $images->push($img->getFullUrl());
+                }
+                $order_item['product']['instock']['images']= $images;
+                unset($order_item['product']['instock']['media']);
+            }
+            unset($order_item['product']['size_id']);
+            unset($order_item['product']['size']);
+            unset($order_item['order_id']);
+            unset($order_item['user_id']);
+            unset($order_item['shop_id']);
+            unset($order_item['user']);
+            unset($order_item['size_id']);
+            unset($order_item['product_id']);
+            unset($order_item['stock_id']);
+            return $order_item;
+        });
+        return $this->SuccessResponse(200,'Order Items Fetched Successfully ..!', $order_items);
     }
 }
