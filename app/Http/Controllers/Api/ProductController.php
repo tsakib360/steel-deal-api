@@ -241,5 +241,23 @@ class ProductController extends Controller
         return $this->SuccessResponse(200,'Offer added to products ..!');
     }
 
+    public function productSearch(Request $request)
+    {
+        if(is_null($request->get('keyword'))) {
+            return  $this->ErrorResponse(400,'No keyword found for searching ..!');
+        }
+//        if(count(count_chars($request->keyword, 1)) < 3) {
+//            return  $this->ErrorResponse(400,'Minimum you have to 3 keyword using ..!');
+//        };
+        $products = Product::where('name', 'like', "%$request->keyword%")
+                    ->with('instock')
+                    ->orWhereHas('instock', function ($stock) use($request) {
+                        $stock->where('basic_price', 'like', "%$request->keyword%");
+                        $stock->orWhere('description', 'like', "%$request->keyword%");
+                    })
+                    ->get();
+        return $this->SuccessResponse(200,'Search result ..!', $products);
+    }
+
 }
 

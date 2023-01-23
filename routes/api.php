@@ -29,6 +29,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Category
 Route::get('category/list',[CategoryController::class,'getCategory']);
 
+//Search
+Route::get('search/product',[ProductController::class,'productSearch']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout',[\App\Http\Controllers\Api\AuthController::class,'logout']);
     Route::group(['prefix'=>'seller'],function(){
