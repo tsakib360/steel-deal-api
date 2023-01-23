@@ -25,6 +25,10 @@ use App\Http\Controllers\Api\ShopController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Category
+Route::get('category/list',[CategoryController::class,'getCategory']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout',[\App\Http\Controllers\Api\AuthController::class,'logout']);
     Route::group(['prefix'=>'seller'],function(){
@@ -45,7 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         //Category
         Route::post('category/add',[CategoryController::class,'addCategorySeller']);
-        Route::get('category/list',[CategoryController::class,'getCategory']);
+        Route::get('category/list',[CategoryController::class,'getCategorySeller']);
 
         //Sub Category
         Route::post('sub-category/add',[CategoryController::class,'addSubCategorySeller']);
@@ -69,6 +73,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('stock/list',[\App\Http\Controllers\Api\InstockController::class,'buyer_product_list']);
         Route::post('cart',[OrderController::class,'cart']);
         Route::post('checkout',[OrderController::class,'checkout']);
+
+        //Category
+        Route::get('category/list',[CategoryController::class,'getCategorySeller']);
     });
 
     Route::group(['prefix' =>'admin'],function(){

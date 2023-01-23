@@ -48,7 +48,7 @@ class CategoryController extends Controller
         return $this->SuccessResponse(200,'Category added successfully ..!');
     }
 
-    public function getCategory(Request $request){
+    public function getCategorySeller(Request $request){
         if(!is_null($request->get('limit'))) {
             $data= tap(Category::where('user_id',auth()->id())->where('parent_id', null)->where('status',true)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
                 unset($listing['image']);
@@ -60,13 +60,43 @@ class CategoryController extends Controller
                 return $listing;
             });
         }else{
-            $data= Category::where('user_id',auth()->id())->where('status',true)->get()->map(function($listing){
+            $data= Category::where('user_id',auth()->id())->where('parent_id', null)->where('status',true)->get()->map(function($listing){
                 unset($listing['image']);
                 unset($listing['status']);
                 unset($listing['user_id']);
                 unset($listing['parent_id']);
                 unset($listing['created_at']);
                 unset($listing['updated_at']);
+                return $listing;
+            });
+        }
+
+        return $this->response($data);
+    }
+
+    public function getCategory(Request $request){
+        if(!is_null($request->get('limit'))) {
+            $data= tap(Category::where('status',true)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
+                $listing['subcategory'] = $listing->subcategories;
+                unset($listing['image']);
+                unset($listing['status']);
+                unset($listing['user_id']);
+                unset($listing['parent_id']);
+                unset($listing['created_at']);
+                unset($listing['updated_at']);
+                unset($listing['subcategories']);
+                return $listing;
+            });
+        }else{
+            $data= Category::where('status',true)->get()->map(function($listing){
+                $listing['subcategory'] = $listing->subcategories;
+                unset($listing['image']);
+                unset($listing['status']);
+                unset($listing['user_id']);
+                unset($listing['parent_id']);
+                unset($listing['created_at']);
+                unset($listing['updated_at']);
+                unset($listing['subcategories']);
                 return $listing;
             });
         }
