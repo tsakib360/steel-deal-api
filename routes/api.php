@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('order/items',[OrderController::class,'orderItemListByShopID']);
     });
 
-    Route::group(['prefix' =>'buyer'],function(){
+    Route::group(['prefix' =>'customer'],function(){
        Route::get('banner/list',[\App\Http\Controllers\Api\BannerController::class,'get_banner']);
         Route::get('product/name',[\App\Http\Controllers\Api\ProductController::class,'product_names']);
         Route::get('stock/list',[\App\Http\Controllers\Api\InstockController::class,'buyer_product_list']);
