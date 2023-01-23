@@ -32,6 +32,10 @@ Route::get('category/list',[CategoryController::class,'getCategory']);
 //Search
 Route::get('search/product',[ProductController::class,'productSearch']);
 
+//Forget Password
+Route::post('forget-password',[\App\Http\Controllers\Api\AuthController::class,'forgetPassword']);
+Route::post('reset-password',[\App\Http\Controllers\Api\AuthController::class,'resetPassword']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout',[\App\Http\Controllers\Api\AuthController::class,'logout']);
     Route::group(['prefix'=>'seller'],function(){

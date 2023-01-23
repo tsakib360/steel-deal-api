@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ResetPasswordMail;
 use App\Models\Address;
 use App\Models\User;
 use App\Models\Verification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -197,6 +201,64 @@ public function register(Request $request){
 
     public function authentication(){
         return $this->ErrorResponse(401,'authentication failed');
+    }
+
+    public function forgetPassword(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validate= Validator::make($request->all(),[
+                'email'=> 'required',
+            ]);
+            if($validate->fails()){
+                return  $this->ErrorResponse(400,$validate->errors());
+            }
+            $user = User::where('email', $request->email)->first();
+            if(is_null($user)) {
+                return $this->ErrorResponse(400,'User not found ..!');
+            }
+            $reset_token =randomNumber(4);
+            $user->reset_token = $reset_token;
+            $user->save();
+
+            $mail_content = [
+                'reset_token' => $reset_token,
+            ];
+
+            Mail::to($request->email)->send(new ResetPasswordMail($mail_content));
+            DB::commit();
+            return $this->SuccessResponse(200, 'An email send contains with reset token.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->ErrorResponse(400,'Something went wrong ..!');
+        }
+    }
+
+    public function resetPassword(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validate= Validator::make($request->all(),[
+                'reset_token'=> 'required',
+                'password'=> 'required',
+            ]);
+            if($validate->fails()){
+                return  $this->ErrorResponse(400,$validate->errors());
+            }
+            $user = User::where('reset_token', $request->reset_token)->first();
+            if(is_null($user)) {
+                return $this->ErrorResponse(400,'User not found ..!');
+            }
+            $user->password = Hash::make($request->password);
+            $user->reset_token = null;
+            $user->save();
+            DB::commit();
+            return $this->SuccessResponse(200, 'Password reset successfully ..!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->ErrorResponse(400,'Something went wrong ..!');
+        }
     }
 
 

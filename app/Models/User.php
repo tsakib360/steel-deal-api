@@ -36,7 +36,8 @@ class User extends Authenticatable implements HasMedia
         'gst_number',
         'cin_number',
         'aadhar_number',
-        'iec_number'
+        'iec_number',
+        'reset_token'
     ];
 
     /**
