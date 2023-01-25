@@ -203,4 +203,15 @@ class OrderController extends Controller
         });
         return $this->SuccessResponse(200,'Order Items Fetched Successfully ..!', $order_items);
     }
+
+    public function trackOrder($order_id)
+    {
+        $order = Order::whereId($order_id)->first();
+        if(is_null($order)) {
+            return $this->ErrorResponse(400,'No order found! ..!');
+        }
+        $track_order = OrderNotification::where('order_id', $order_id)->latest()->get();
+        return $this->SuccessResponse(200,'Order Items Fetched Successfully ..!', $track_order);
+
+    }
 }

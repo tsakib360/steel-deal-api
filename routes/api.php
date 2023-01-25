@@ -40,6 +40,9 @@ Route::get('product/type/{type_name}',[ProductController::class,'productFetchWit
 //Shops
 Route::get('shops/{status}',[ShopController::class,'getAllShopsWithType']);
 
+//Orders
+Route::get('track-order/{order_id}',[OrderController::class,'trackOrder']);
+
 //Forget Password
 Route::post('forget-password',[\App\Http\Controllers\Api\AuthController::class,'forgetPassword']);
 Route::post('reset-password',[\App\Http\Controllers\Api\AuthController::class,'resetPassword']);
