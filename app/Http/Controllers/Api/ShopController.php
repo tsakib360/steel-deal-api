@@ -108,4 +108,10 @@ class ShopController extends Controller
         $shop->save();
         return $this->SuccessResponse(200,'Successfully updated ..!');
     }
+
+    public function getAllShopsWithType($status)
+    {
+        $shops = Shop::where('is_online', $status)->get();
+        return $this->SuccessResponse(200,'Successfully updated ..!', $shops);
+    }
 }

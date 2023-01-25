@@ -37,6 +37,9 @@ Route::get('search/product',[ProductController::class,'productSearch']);
 Route::get('product/all',[ProductController::class,'product_names']);
 Route::get('product/type/{type_name}',[ProductController::class,'productFetchWithType']);
 
+//Shops
+Route::get('shops/{status}',[ShopController::class,'getAllShopsWithType']);
+
 //Forget Password
 Route::post('forget-password',[\App\Http\Controllers\Api\AuthController::class,'forgetPassword']);
 Route::post('reset-password',[\App\Http\Controllers\Api\AuthController::class,'resetPassword']);
