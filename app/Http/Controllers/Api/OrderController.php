@@ -99,7 +99,8 @@ class OrderController extends Controller
             }
 
             $discount = !is_null($request->discount) ? $request->discount : 0;
-            $grand_total = ($request->subtotal + $request->delivery_charge) - $discount;
+            $gst = $request->subtotal * (7.5/100);
+            $grand_total = ($request->subtotal + $request->delivery_charge + $gst) - $discount;
             if($grand_total != $request->grand_total) {
                 return $this->ErrorResponse(400,'Grand total is not correct with cart total ..!');
             }
@@ -114,6 +115,7 @@ class OrderController extends Controller
                 'subtotal' => $request->subtotal,
                 'delivery_charge' => $request->delivery_charge,
                 'discount' => $discount,
+                'gst' => $gst,
                 'grand_total' => $request->grand_total,
                 'payment_method' => $request->payment_method,
                 'status' => Order::PENDING,
