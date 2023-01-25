@@ -97,4 +97,15 @@ class ShopController extends Controller
         $shop->save();
         return $this->SuccessResponse(200,'Successfully updated ..!');
     }
+
+    public function updateShopStatus(Request $request)
+    {
+        $shop= Shop::where('user_id',auth()->id())->first();
+        if(is_null($shop)) {
+            return $this->ErrorResponse(400,'No shop found ..!');
+        }
+        $shop->is_online = $request->status;
+        $shop->save();
+        return $this->SuccessResponse(200,'Successfully updated ..!');
+    }
 }

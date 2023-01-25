@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         //Shop
         Route::get('shop-time',[ShopController::class,'getShopTime']);
         Route::post('update-shop-time',[ShopController::class,'updateShopTime']);
+        Route::post('update-status',[ShopController::class,'updateShopStatus']);
 
         //Offer
         Route::get('offer/list',[ProductController::class,'offerList']);
