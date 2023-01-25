@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ShopController;
+use App\Http\Controllers\Api\SizeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +88,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         //Category
         Route::get('category/list',[CategoryController::class,'getCategorySeller']);
+
+        //Product Size
+        Route::post('size/request',[SizeController::class,'sizeRequestByUser']);
     });
 
     Route::group(['prefix' =>'admin'],function(){
