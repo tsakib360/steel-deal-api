@@ -21,6 +21,8 @@ class ShopController extends Controller
             'address'=>'required',
             'open_time'=>'required',
             'close_time'=>'required',
+            'latitude'=>'required',
+            'longitude'=>'required',
             'banner'=>'required',
             'banner.*'=>'mimes:jpg,jpeg,png,bmp|max:3072',
             'shop_image'=>'required|mimes:jpg,jpeg,png,bmp|max:2000'
@@ -41,7 +43,9 @@ class ShopController extends Controller
            'mobile'=>$request->mobile,
            'address'=>$request->address,
            'open_time'=>$request->open_time,
-           'close_time'=>$request->close_time
+           'close_time'=>$request->close_time,
+           'latitude'=>$request->latitude,
+           'longitude'=>$request->longitude,
         ]);
 
         if(!$shop){
@@ -112,6 +116,20 @@ class ShopController extends Controller
     public function getAllShopsWithType($status)
     {
         $shops = Shop::where('is_online', $status)->get();
+        return $this->SuccessResponse(200,'Successfully updated ..!', $shops);
+    }
+
+    public function searchShopByLocation(Request $request)
+    {
+        $validate= Validator::make($request->all(),[
+            'latitude'=>'required',
+            'longitude'=>'required',
+            'distance' => 'required'
+        ]);
+        if($validate->fails()){
+            return $this->ErrorResponse(400,$validate->errors());
+        }
+        $shops = Shop::distance($request->latitude, $request->longitude, $request->distance)->get();
         return $this->SuccessResponse(200,'Successfully updated ..!', $shops);
     }
 }
