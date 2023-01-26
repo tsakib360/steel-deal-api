@@ -214,4 +214,29 @@ class OrderController extends Controller
         return $this->SuccessResponse(200,'Order Items Fetched Successfully ..!', $track_order);
 
     }
+
+    public function reverseOrder($order_id)
+    {
+        DB::beginTransaction();
+        try {
+            $order = Order::whereId($order_id)->where('user_id', Auth::id())->first();
+            if(is_null($order)) {
+                return $this->ErrorResponse(400,'No order found ..!');
+            }
+            if(!Order::whereId($order_id)->whereBetween('created_at', [Carbon::now()->subMinutes(10), Carbon::now()])->exists()) {
+                return $this->ErrorResponse(400,'Order reverse time expired ..!');
+            }
+            OrderItem::where('order_id', $order_id)->update([
+                'order_id' => null,
+            ]);
+            OrderNotification::where('order_id', $order_id)->delete();
+            $order->delete();
+            DB::commit();
+            return $this->SuccessResponse(200,'Order is reverted ..!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->ErrorResponse(400,'Somethings went wrong ..!');
+        }
+
+    }
 }

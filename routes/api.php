@@ -90,8 +90,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::get('banner/list',[\App\Http\Controllers\Api\BannerController::class,'get_banner']);
         Route::get('product/name',[\App\Http\Controllers\Api\ProductController::class,'product_names']);
         Route::get('stock/list',[\App\Http\Controllers\Api\InstockController::class,'buyer_product_list']);
+
+        //Orders
         Route::post('cart',[OrderController::class,'cart']);
         Route::post('checkout',[OrderController::class,'checkout']);
+        Route::post('reverse-order/{order_id}',[OrderController::class,'reverseOrder']);
 
         //Category
         Route::get('category/list',[CategoryController::class,'getCategorySeller']);
