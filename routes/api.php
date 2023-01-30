@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ShopController;
 use App\Http\Controllers\Api\SizeController;
+use App\Http\Controllers\Api\TruckController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,6 +117,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
        //Offer
        Route::post('offer/add',[ProductController::class,'add_offer']);
+    });
+
+    Route::group(['prefix' =>'transporter'],function(){
+        //Trucks
+       Route::get('all-trucks',[TruckController::class,'allTrucks']);
+       Route::post('add-truck',[TruckController::class,'addTruck']);
+       Route::post('update-truck/{id}',[TruckController::class,'updateTruck']);
+       Route::post('delete-truck/{id}',[TruckController::class,'deleteTruck']);
     });
 
 });
