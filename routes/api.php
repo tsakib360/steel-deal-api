@@ -112,7 +112,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::get('customers',[UserController::class,'all_customers']);
        Route::get('drivers',[UserController::class,'all_drivers']);
        Route::get('sellers',[UserController::class,'all_sellers']);
+
+       //Orders
        Route::get('orders',[OrderController::class,'orderList']);
+       Route::post('order/assign-transporter/{order_id}',[OrderController::class,'assignTransporterToOrder']);
+
        Route::get('transactions',[TransactionController::class,'transactionList']);
 
        //Offer
@@ -125,6 +129,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        Route::post('add-truck',[TruckController::class,'addTruck']);
        Route::post('update-truck/{id}',[TruckController::class,'updateTruck']);
        Route::post('delete-truck/{id}',[TruckController::class,'deleteTruck']);
+
+       //Orders
+        Route::get('orders/assigned',[OrderController::class,'assignedOrderList']);
+        Route::post('order/start-journey/{order_id}',[OrderController::class,'transporterStartJourney']);
     });
 
 });

@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderNotification;
 use App\Models\Shop;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -238,5 +239,78 @@ class OrderController extends Controller
             return $this->ErrorResponse(400,'Somethings went wrong ..!');
         }
 
+    }
+
+    public function assignTransporterToOrder(Request $request, $order_id)
+    {
+        DB::beginTransaction();
+        try {
+            $validate= Validator::make($request->all(),[
+                'transporter_id'=>'required',
+            ]);
+            if($validate->fails()){
+                return  $this->ErrorResponse(400,$validate->messages());
+            }
+            $order = Order::whereId($order_id)->first();
+            if(is_null($order)) {
+                return $this->ErrorResponse(400,'No order found ..!');
+            }
+            if(!is_null($order->transported_by)) {
+                return $this->ErrorResponse(400,'Already assigned a transporter..!');
+            }
+
+            $transporter = User::whereId($request->transporter_id)->where('role', 5)->first();
+            if(is_null($transporter)) {
+                return $this->ErrorResponse(400,'No transporter found ..!');
+            }
+            $order->update([
+                'transported_by' => $transporter->id,
+                'status' => Order::ON_PROCESSING,
+            ]);
+            OrderNotification::create([
+                'order_id' => $order->id,
+                'order_status' => Order::ON_PROCESSING,
+                'title' => 'Order is transported by '.$transporter->name,
+                'comment' => 'Order is on processing. Assigned for delivery to '.$transporter->name,
+            ]);
+            DB::commit();
+            return $this->SuccessResponse(200,'Transporter assigned successfully ..!');
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return $this->ErrorResponse(400,'Somethings went wrong ..!');
+        }
+    }
+
+    public function assignedOrderList()
+    {
+        $data = Order::where('transported_by', Auth::id())->where('status', Order::ON_PROCESSING)->with('user')->get()->map(function($listing){
+            unset($listing['user_id']);
+            unset($listing['user']['email_verified_at']);
+            unset($listing['user']['phone_verified_at']);
+            unset($listing['user']['status']);
+            unset($listing['user']['role']);
+            unset($listing['user']['reset_token']);
+            unset($listing['user']['created_at']);
+            unset($listing['user']['updated_at']);
+            return $listing;
+        });
+        return  $this->SuccessResponse(200,'Data fetch successfully ..!',$data);
+    }
+
+    public function transporterStartJourney($order_id)
+    {
+        $order = Order::whereId($order_id)->where('transported_by', Auth::id())->first();
+        if(is_null($order)) {
+            return $this->ErrorResponse(400,'No assigned order found ..!');
+        }
+        OrderNotification::create([
+            'order_id' => $order->id,
+            'order_status' => Order::ON_PROCESSING,
+            'scope' => ['transporter'],
+            'title' => 'Transporter has started his journey',
+            'comment' => 'Order is on processing. Transporter has started his journey',
+        ]);
+
+        return $this->SuccessResponse(200,'Transporter assigned successfully ..!');
     }
 }
