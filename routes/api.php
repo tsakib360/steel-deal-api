@@ -51,6 +51,7 @@ Route::post('reset-password',[\App\Http\Controllers\Api\AuthController::class,'r
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout',[\App\Http\Controllers\Api\AuthController::class,'logout']);
+    Route::post('profile-update',[AuthController::class,'updateProfile']);
     Route::group(['prefix'=>'seller'],function(){
         //Product
         Route::post('product/add',[ProductController::class,'add_product']);

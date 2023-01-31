@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Verification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -255,6 +256,66 @@ public function register(Request $request){
             DB::commit();
             return $this->SuccessResponse(200, 'Password reset successfully ..!');
 
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->ErrorResponse(400,'Something went wrong ..!');
+        }
+    }
+
+    public function updateProfile(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $user = User::whereId(Auth::id())->first();
+            if(is_null($user)) {
+                DB::rollBack();
+                return $this->ErrorResponse(400,'No user found ..!');
+            }
+            $user->name = !is_null($request->name) ? $request->name : $user->name;
+            $user->country = !is_null($request->country) ? $request->country : $user->country;
+            $user->state = !is_null($request->state) ? $request->state : $user->state;
+            $user->city = !is_null($request->city) ? $request->city : $user->city;
+            $user->pin_code = !is_null($request->pin_code) ? $request->pin_code : $user->pin_code;
+            $user->address = !is_null($request->address) ? $request->address : $user->address;
+            $user->gst_number = !is_null($request->gst_number) ? $request->gst_number : $user->gst_number;
+            $user->cin_number = !is_null($request->cin_number) ? $request->cin_number : $user->cin_number;
+            $user->aadhar_number = !is_null($request->aadhar_number) ? $request->aadhar_number : $user->aadhar_number;
+            $user->iec_number = !is_null($request->iec_number) ? $request->iec_number : $user->iec_number;
+            $user->save();
+
+            if($request->hasFile('profile')){
+                $user->clearMediaCollection('profile');
+                $user->addMedia($request->profile)->toMediaCollection('profile');
+            }
+            if($request->hasFile('pan_img')){
+                $user->clearMediaCollection('pan');
+                $user->addMedia($request->pan_img)->toMediaCollection('pan');
+            }
+            if($request->hasFile('gst_img')){
+                $user->clearMediaCollection('gst');
+                $user->addMedia($request->gst_img)->toMediaCollection('gst');
+            }
+            if($request->hasFile('aadhar_img')){
+                $user->clearMediaCollection('aadhar');
+                $user->addMedia($request->aadhar_img)->toMediaCollection('aadhar');
+            }
+            if($request->hasFile('cin_img')){
+                $user->clearMediaCollection('cin');
+                $user->addMedia($request->cin_img)->toMediaCollection('cin');
+            }
+            if($request->hasFile('iec_img')){
+                $user->clearMediaCollection('iec');
+                $user->addMedia($request->iec_img)->toMediaCollection('iec');
+            }
+            $user['profile']=!empty($user->getFirstMediaUrl('profile')) ? $user->getFirstMediaUrl('profile') : null;
+            $user['pan']=!empty($user->getFirstMediaUrl('pan')) ? $user->getFirstMediaUrl('pan') : null;
+            $user['gst']=!empty($user->getFirstMediaUrl('gst')) ? $user->getFirstMediaUrl('gst') : null;
+            $user['aadhar']=!empty($user->getFirstMediaUrl('aadhar')) ? $user->getFirstMediaUrl('aadhar') : null;
+            $user['cin']=!empty($user->getFirstMediaUrl('cin')) ? $user->getFirstMediaUrl('cin') : null;
+            $user['iec']=!empty($user->getFirstMediaUrl('iec')) ? $user->getFirstMediaUrl('iec') : null;
+            unset($user['media']);
+            DB::commit();
+            return $this->SuccessResponse(200, 'Profile update successfully ..!', $user);
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->ErrorResponse(400,'Something went wrong ..!');
