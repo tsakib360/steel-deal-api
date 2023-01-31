@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ShopController;
 use App\Http\Controllers\Api\SizeController;
 use App\Http\Controllers\Api\TruckController;
+use App\Http\Controllers\Api\ProductCounterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +88,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         //Orders
         Route::get('order/items',[OrderController::class,'orderItemListByShopID']);
+
+        //Product Counter
+        Route::get('product/counter/list',[ProductCounterController::class,'productCounterListBySeller']);
+        Route::post('product/counter/update/{counter_id}',[ProductCounterController::class,'productCounterPriceChangeBySeller']);
+        Route::post('product/counter/accept/{counter_id}',[ProductCounterController::class,'counterProductAccept']);
     });
 
     Route::group(['prefix' =>'customer'],function(){
@@ -104,6 +110,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
         //Product Size
         Route::post('size/request',[SizeController::class,'sizeRequestByUser']);
+
+        //Product Counter
+        Route::get('product/counter/list',[ProductCounterController::class,'productCounterListByBuyer']);
+        Route::post('product/counter',[ProductCounterController::class,'createProductCounter']);
+        Route::post('product/counter/update/{counter_id}',[ProductCounterController::class,'productCounterPriceChangeByBuyer']);
     });
 
     Route::group(['prefix' =>'admin'],function(){
