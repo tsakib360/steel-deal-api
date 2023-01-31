@@ -313,4 +313,53 @@ class OrderController extends Controller
 
         return $this->SuccessResponse(200,'Transporter assigned successfully ..!');
     }
+
+    public function orderComplete(Request $request, $order_id)
+    {
+        DB::beginTransaction();
+        try {
+            $validate= Validator::make($request->all(),[
+                'status'=>'required',
+            ]);
+            if($validate->fails()){
+                return  $this->ErrorResponse(400,$validate->messages());
+            }
+            $status_arr = ['delivered', 'returned'];
+            if(!in_array($request->status, $status_arr)) {
+                return $this->ErrorResponse(400,'You can only use delivered or returned keyword ..!');
+            }
+            $order = Order::whereId($order_id)->where('transported_by', Auth::id())->first();
+            if(is_null($order)) {
+                return $this->ErrorResponse(400,'No order found ..!');
+            }
+            if($request->status == 'delivered') {
+                $order->update([
+                    'status' => Order::DELIVERED,
+                ]);
+                OrderNotification::create([
+                    'order_id' => $order->id,
+                    'order_status' => Order::DELIVERED,
+                    'title' => 'Order is Delivered',
+                    'comment' => 'Order is Delivered to buyer at '.Carbon::now()->toDateTimeString().'.',
+                ]);
+            }else {
+                $order->update([
+                    'status' => Order::RETURNED,
+                ]);
+                OrderNotification::create([
+                    'order_id' => $order->id,
+                    'order_status' => Order::RETURNED,
+                    'title' => 'Order is Returned',
+                    'comment' => 'Order is Returned from buyer at '.Carbon::now()->toDateTimeString().'.',
+                ]);
+            }
+
+            DB::commit();
+            return $this->SuccessResponse(200,'Order is completed ..!');
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return $this->SuccessResponse(400,'Something went wrong ..!');
+        }
+
+    }
 }

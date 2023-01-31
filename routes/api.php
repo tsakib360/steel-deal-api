@@ -134,6 +134,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
        //Orders
         Route::get('orders/assigned',[OrderController::class,'assignedOrderList']);
         Route::post('order/start-journey/{order_id}',[OrderController::class,'transporterStartJourney']);
+        Route::post('order/complete/{order_id}',[OrderController::class,'orderComplete']);
     });
 
 });
