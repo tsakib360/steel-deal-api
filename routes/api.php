@@ -154,8 +154,8 @@ Route::post('login',[\App\Http\Controllers\Api\AuthController::class,'login']);
 Route::post('validate/otp',[\App\Http\Controllers\Api\AuthController::class,'verify_otp']);
 Route::get('authentication',[AuthController::class,'authentication'])->name('authentication');
 
-Route::group(['prefix'=>'seller'],function(){
-    Route::post('login',[AuthController::class,'loginSeller']);
-    Route::post('validate/otp',[AuthController::class,'verify_otp_seller']);
-    Route::post('logout',[AuthController::class,'logout']);
-});
+//Route::group(['prefix'=>'seller'],function(){
+//    Route::post('login',[AuthController::class,'loginSeller']);
+//    Route::post('validate/otp',[AuthController::class,'verify_otp_seller']);
+//    Route::post('logout',[AuthController::class,'logout']);
+//});
