@@ -133,7 +133,9 @@ public function register(Request $request){
         }
         $user= User::where('email',$verify->username)->orWhere('phone',$verify->username)->first();
         $verify->delete();
-        $user['token']='Bearer ' . $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('app')->accessToken;
+//        $user['token']='Bearer ' . $user->createToken('auth_token')->plainTextToken;
+        $user['token']=$token;
         return $this->SuccessResponse(200,'Login successfully ..!',$user);
     }
 

@@ -50,7 +50,7 @@ Route::get('track-order/{order_id}',[OrderController::class,'trackOrder']);
 Route::post('forget-password',[\App\Http\Controllers\Api\AuthController::class,'forgetPassword']);
 Route::post('reset-password',[\App\Http\Controllers\Api\AuthController::class,'resetPassword']);
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::post('logout',[\App\Http\Controllers\Api\AuthController::class,'logout']);
     Route::post('profile-update',[AuthController::class,'updateProfile']);
     Route::group(['prefix'=>'seller'],function(){
