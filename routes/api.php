@@ -46,6 +46,9 @@ Route::get('shops/{status}',[ShopController::class,'getAllShopsWithType']);
 //Orders
 Route::get('track-order/{order_id}',[OrderController::class,'trackOrder']);
 
+//Sizes
+Route::get('size/list',[\App\Http\Controllers\Api\SizeController::class,'size']);
+
 //Forget Password
 Route::post('forget-password',[\App\Http\Controllers\Api\AuthController::class,'forgetPassword']);
 Route::post('reset-password',[\App\Http\Controllers\Api\AuthController::class,'resetPassword']);
