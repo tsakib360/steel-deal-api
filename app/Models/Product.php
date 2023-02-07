@@ -15,6 +15,14 @@ class Product extends Model
         return $this->hasOne(Instock::class,'product_id');
     }
 
+    public function only_isi(){
+        return $this->hasOne(Instock::class,'product_id')->where('brand_type', 'isi');
+    }
+
+    public function non_isi(){
+        return $this->hasOne(Instock::class,'product_id')->where('brand_type', '!=', 'isi');
+    }
+
     public function size(){
         return $this->belongsTo(Size::class, 'size_id');
     }
