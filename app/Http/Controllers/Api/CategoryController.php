@@ -80,8 +80,15 @@ class CategoryController extends Controller
 
     public function getCategory(Request $request){
         if(!is_null($request->get('limit'))) {
-            $data= tap(Category::where('status',true)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
-                $listing['subcategory'] = $listing->subcategories;
+            $data= tap(Category::where('status',true)->where('parent_id', null)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($listing){
+                $listing['thumb'] = $listing->getFirstMediaUrl('category_image');
+                $listing['subcategory'] = $listing->subcategories->map(function($s_listing) {
+                    $s_listing['thumb'] = $s_listing->getFirstMediaUrl('category_image');
+                    unset($s_listing['created_at']);
+                    unset($s_listing['updated_at']);
+                    unset($s_listing['media']);
+                    return $s_listing;
+                });
                 unset($listing['image']);
                 unset($listing['status']);
                 unset($listing['user_id']);
@@ -89,11 +96,19 @@ class CategoryController extends Controller
                 unset($listing['created_at']);
                 unset($listing['updated_at']);
                 unset($listing['subcategories']);
+                unset($listing['media']);
                 return $listing;
             });
         }else{
-            $data= Category::where('status',true)->get()->map(function($listing){
-                $listing['subcategory'] = $listing->subcategories;
+            $data= Category::where('status',true)->where('parent_id', null)->get()->map(function($listing){
+                $listing['thumb'] = $listing->getFirstMediaUrl('category_image');
+                $listing['subcategory'] = $listing->subcategories->map(function($s_listing) {
+                    $s_listing['thumb'] = $s_listing->getFirstMediaUrl('category_image');
+                    unset($s_listing['created_at']);
+                    unset($s_listing['updated_at']);
+                    unset($s_listing['media']);
+                    return $s_listing;
+                });
                 unset($listing['image']);
                 unset($listing['status']);
                 unset($listing['user_id']);
@@ -101,6 +116,7 @@ class CategoryController extends Controller
                 unset($listing['created_at']);
                 unset($listing['updated_at']);
                 unset($listing['subcategories']);
+                unset($listing['media']);
                 return $listing;
             });
         }
