@@ -17,6 +17,15 @@ use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
+    public function getCart()
+    {
+        $data = array();
+        $cart_list = OrderItem::where('user_id', Auth::id())->where('order_id', null)->with('product')->get();
+        $data['cart_items'] = $cart_list;
+//        $data['cart_items']['product'] = $cart_list->product;
+        $data['total'] = $cart_list->sum('total');
+        return $this->SuccessResponse(200,'Data fetch successfully ..!', $data);
+    }
     public function cart(Request $request)
     {
         DB::beginTransaction();

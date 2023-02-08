@@ -106,6 +106,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('stock/list',[\App\Http\Controllers\Api\InstockController::class,'buyer_product_list']);
 
         //Orders
+        Route::get('fetch-cart',[OrderController::class,'getCart']);
         Route::post('cart',[OrderController::class,'cart']);
         Route::post('checkout',[OrderController::class,'checkout']);
         Route::post('reverse-order/{order_id}',[OrderController::class,'reverseOrder']);
