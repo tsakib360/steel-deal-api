@@ -23,7 +23,10 @@ class OrderController extends Controller
         $cart_list = OrderItem::where('user_id', Auth::id())->where('order_id', null)->with('product')->get();
         $data['cart_items'] = $cart_list;
 //        $data['cart_items']['product'] = $cart_list->product;
+        $subtotal = $cart_list->sum('total');
+        $gst = $subtotal * (7.5 / 100);
         $data['total'] = $cart_list->sum('total');
+        $data['gst'] = $gst;
         return $this->SuccessResponse(200,'Data fetch successfully ..!', $data);
     }
     public function cart(Request $request)
@@ -91,9 +94,7 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             $validate= Validator::make($request->all(),[
-                'subtotal'=>'required',
                 'delivery_charge'=>'required',
-                'grand_total'=>'required',
                 'payment_method'=>'required',
             ]);
             if($validate->fails()){
@@ -104,16 +105,16 @@ class OrderController extends Controller
                 return $this->ErrorResponse(400,'No product found in your cart ..!');
             }
             $item_subtotal = OrderItem::where('user_id', Auth::id())->where('order_id', null)->sum('total');
-            if($item_subtotal != $request->subtotal) {
-                return $this->ErrorResponse(400,'Subtotal is not correct with cart total ..!');
-            }
+//            if($item_subtotal != $request->subtotal) {
+//                return $this->ErrorResponse(400,'Subtotal is not correct with cart total ..!');
+//            }
 
             $discount = !is_null($request->discount) ? $request->discount : 0;
-            $gst = $request->subtotal * (7.5/100);
-            $grand_total = ($request->subtotal + $request->delivery_charge + $gst) - $discount;
-            if($grand_total != $request->grand_total) {
-                return $this->ErrorResponse(400,'Grand total is not correct with cart total ..!');
-            }
+            $gst = $item_subtotal * (7.5/100);
+            $grand_total = ($item_subtotal + $request->delivery_charge + $gst) - $discount;
+//            if($grand_total != $request->grand_total) {
+//                return $this->ErrorResponse(400,'Grand total is not correct with cart total ..!');
+//            }
 
             if(!in_array($request->payment_method, Order::PAYMENT_METHOD_ARR)) {
                 return $this->ErrorResponse(400,'You are not using supported payment method ..!');
@@ -122,11 +123,11 @@ class OrderController extends Controller
             $order = Order::create([
                 'order_number' => $this->generateOrderNumber(),
                 'user_id' => Auth::id(),
-                'subtotal' => $request->subtotal,
+                'subtotal' => $item_subtotal,
                 'delivery_charge' => $request->delivery_charge,
                 'discount' => $discount,
                 'gst' => $gst,
-                'grand_total' => $request->grand_total,
+                'grand_total' => $grand_total,
                 'payment_method' => $request->payment_method,
                 'status' => Order::PENDING,
             ]);
