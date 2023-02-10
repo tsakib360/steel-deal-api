@@ -38,6 +38,7 @@ Route::post('search/shop/location',[ShopController::class,'searchShopByLocation'
 
 //Products
 Route::get('product/all',[ProductController::class,'product_names']);
+Route::get('product/fetch/{product_id}',[ProductController::class,'getProductByID']);
 Route::get('product/type/{type_name}',[ProductController::class,'productFetchWithType']);
 Route::get('product/category/{category_id}',[CategoryController::class,'getCatOrSubcatProducts']);
 Route::get('product/category/{category_id}/type/{type}',[CategoryController::class,'getCatOrSubcatTYpeProducts']);
