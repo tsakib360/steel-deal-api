@@ -63,6 +63,19 @@ class ProductController extends Controller
                 'random'=>!is_null($request->random) ? $request->random : $product->random,
                 'clear_cut'=>!is_null($request->clear_cut) ? $request->clear_cut : $product->clear_cut
             ]);
+            $stock = Instock::where('product_id', $product->id)->first();
+            if(!is_null($stock)){
+                $stock->basic_price = !is_null($request->price) ? $request->price : $stock->basic_price;
+                $stock->description = !is_null($request->description) ? $request->description : $stock->description;
+                $stock->save();
+                if($request->hasFile('product_image')){
+                    $stock->clearMediaCollection('product');
+                    foreach ($request->product_image as $image){
+                        $stock->addMedia($image)->toMediaCollection('product');
+                    }
+
+                }
+            }
 
             DB::commit();
             return $this->SuccessResponse(200,'Product updated successfully ..!');
