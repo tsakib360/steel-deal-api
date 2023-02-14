@@ -13,6 +13,10 @@ class Category extends Model implements HasMedia
 
     protected $guarded =[];
 
+    protected $casts = [
+        'measurement_attributes' => 'array',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'parent_id');

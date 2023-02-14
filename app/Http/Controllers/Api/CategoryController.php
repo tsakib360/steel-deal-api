@@ -17,7 +17,8 @@ class CategoryController extends Controller
         $validate=Validator::make($request->all(),[
             'name'=>'required',
             'image'=>'required',
-            'image.*'=>'image|mimes:jpg,jpeg,png,bmp|max:3000'
+            'image.*'=>'image|mimes:jpg,jpeg,png,bmp|max:3000',
+            'measurement_attributes' => 'array'
         ]);
         if($validate->fails()){
             return  $this->ErrorResponse(400,$validate->messages());
@@ -29,11 +30,13 @@ class CategoryController extends Controller
         if($user->role != 3) {
             return  $this->ErrorResponse(400,'You are not a seller ..!');
         }
+        $measurements = !is_null($request->measurement_attributes) ? $request->measurement_attributes : array();
 
         $category=Category::create([
             'name' =>$request->name,
             'user_id' =>auth()->id(),
             'description'=>$request->description,
+            'measurement_attributes' => $measurements,
         ]);
 
 
