@@ -81,7 +81,7 @@ class ProductController extends Controller
             return $this->SuccessResponse(200,'Product updated successfully ..!');
         }catch (\Exception $e) {
             DB::rollBack();
-            return $this->ErrorResponse(400,'Something went wrong ..!');
+            return $this->ErrorResponse(400,$e->getMessage());
         }
     }
 
