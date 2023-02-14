@@ -11,6 +11,10 @@ class Product extends Model
 
     protected $guarded =[];
 
+    protected $casts = [
+        'measurements' => 'object',
+    ];
+
     public function instock(){
         return $this->hasOne(Instock::class,'product_id');
     }

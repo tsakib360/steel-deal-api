@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Instock;
 use App\Models\Offer;
 use App\Models\Product;
@@ -21,7 +22,8 @@ class ProductController extends Controller
            'size' =>'required',
            'price' =>'required',
             'random' => 'required',
-            'clear_cut'=> 'required'
+            'clear_cut'=> 'required',
+            'category_id' => 'required'
         ]);
         if($validate->fails()){
             return  $this->ErrorResponse(400,$validate->messages());
@@ -30,6 +32,24 @@ class ProductController extends Controller
             return  $this->ErrorResponse(400,'You don\'t have shop. Kindly create first to add product ..!');
         }
         $shop= Shop::where('user_id',auth()->id())->first();
+        $category= Category::whereId($request->category_id)->first();
+        if(is_null($category)) {
+            return  $this->ErrorResponse(400,'No category found ..!');
+        }
+
+        $obj['name'] = $request->name;
+        if(!empty($category->measurement_attributes)) {
+            foreach($category->measurement_attributes as $attr){
+                if(!$request->has($attr)) {
+                    return $this->ErrorResponse(400, $attr.' is required!');
+                }
+                if(is_null($request->input($attr))) {
+                    return $this->ErrorResponse(400, $attr.' is required!');
+                }
+                $obj[$attr] = $request->input($attr);
+            }
+        }
+        unset($obj['name']);
         $product= Product::create([
             'shop_id'=> $shop->id,
            'user_id' =>auth()->id(),
@@ -38,7 +58,8 @@ class ProductController extends Controller
            'category_id'=>!is_null($request->category_id) ? $request->category_id : 1,
            'price'=>$request->price,
            'random'=>$request->random,
-           'clear_cut'=>$request->clear_cut
+           'clear_cut'=>$request->clear_cut,
+            'measurements' => !empty($obj) ? $obj : null,
         ]);
         if(!$product){
             return $this->ErrorResponse(400,'Somethings went wrong while add product ..!');
