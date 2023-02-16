@@ -8,6 +8,7 @@ use App\Models\Instock;
 use App\Models\Offer;
 use App\Models\Product;
 use App\Models\Shop;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ class ProductController extends Controller
     public function add_product(Request $request){
         $validate= Validator::make($request->all(),[
            'name'=>'required',
-           'size' =>'required',
+           'sizes' =>'required|array',
            'price' =>'required',
             'random' => 'required',
             'clear_cut'=> 'required',
@@ -35,6 +36,14 @@ class ProductController extends Controller
         $category= Category::whereId($request->category_id)->first();
         if(is_null($category)) {
             return  $this->ErrorResponse(400,'No category found ..!');
+        }
+
+        $size_arr = array();
+        foreach($request->sizes as $size) {
+           if(!Size::whereId($size)->exists()) {
+               return  $this->ErrorResponse(400,'Unknown size ('.$size.') you given ..!');
+           }
+           array_push($size_arr, (int) $size);
         }
 
         $obj['name'] = $request->name;
@@ -54,7 +63,7 @@ class ProductController extends Controller
             'shop_id'=> $shop->id,
            'user_id' =>auth()->id(),
            'name'=>$request->name,
-           'size_id'=>$request->size,
+           'sizes'=>$size_arr,
            'category_id'=>!is_null($request->category_id) ? $request->category_id : 1,
            'price'=>$request->price,
            'random'=>$request->random,
@@ -72,13 +81,31 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
+            $validate= Validator::make($request->all(),[
+                'sizes' =>'array',
+            ]);
+            if($validate->fails()){
+                DB::rollBack();
+                return  $this->ErrorResponse(400,$validate->messages());
+            }
             $product = Product::whereId($product_id)->first();
             if(is_null($product)){
                 return $this->ErrorResponse(400,'No product found ..!');
             }
+            $size_arr = $product->sizes;
+            if($request->has('sizes')) {
+                foreach ($request->sizes as $size) {
+                    if(!in_array($size, $size_arr)) {
+                        if(Size::whereId($size)->exists()) {
+                            array_push($size_arr, (int) $size);
+                        }
+
+                    }
+                }
+            }
             $product->update([
                 'name'=>!is_null($request->name) ? $request->name : $product->name,
-                'size_id'=>!is_null($request->size) ? $request->size : $product->size_id,
+                'sizes'=>$size_arr,
                 'category_id'=>!is_null($request->category_id) ? $request->category_id : $product->category_id,
                 'price'=>!is_null($request->price) ? $request->price : $product->price,
                 'random'=>!is_null($request->random) ? $request->random : $product->random,
@@ -109,7 +136,14 @@ class ProductController extends Controller
     public function product_names(Request $request){
         if(!is_null($request->get('limit'))) {
             $products= tap(Product::latest()->with('instock')->has('instock')->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
-                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){
@@ -142,13 +176,21 @@ class ProductController extends Controller
                 unset($product['shop']['user_id']);
                 unset($product['shop']['created_at']);
                 unset($product['shop']['updated_at']);
-                unset($product['size']['created_at']);
-                unset($product['size']['updated_at']);
+//                unset($product['size']['created_at']);
+//                unset($product['size']['updated_at']);
                 return $product;
             });
         }else{
             $products= Product::latest()->with('instock')->has('instock')->get()->map(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){
@@ -181,8 +223,8 @@ class ProductController extends Controller
                 unset($product['shop']['user_id']);
                 unset($product['shop']['created_at']);
                 unset($product['shop']['updated_at']);
-                unset($product['size']['created_at']);
-                unset($product['size']['updated_at']);
+//                unset($product['size']['created_at']);
+//                unset($product['size']['updated_at']);
                 return $product;
             });
         }
@@ -196,7 +238,15 @@ class ProductController extends Controller
         if(is_null($product)) {
             return $this->ErrorResponse(400,'No product found ..!');
         }
-        $product['size']= $product->size;
+//        $product['size']= $product->size;
+        $size_arr = array();
+        if(count($product['sizes']) != 0) {
+            foreach ($product['sizes'] as $size) {
+                $sz = Size::whereId($size)->first();
+                array_push($size_arr, $sz);
+            }
+        }
+        $product['sizes'] = $size_arr;
         if(!is_null($product->instock)) {
             $images=collect();
             foreach ($product->instock->getMedia('product') as $img){
@@ -229,8 +279,8 @@ class ProductController extends Controller
         unset($product['shop']['user_id']);
         unset($product['shop']['created_at']);
         unset($product['shop']['updated_at']);
-        unset($product['size']['created_at']);
-        unset($product['size']['updated_at']);
+//        unset($product['size']['created_at']);
+//        unset($product['size']['updated_at']);
         return $this->response($product);
     }
 
@@ -248,7 +298,15 @@ class ProductController extends Controller
         }
         if(!is_null($request->get('limit'))) {
             $products= tap($query->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){
@@ -263,7 +321,15 @@ class ProductController extends Controller
             });
         }else{
             $products= $query->get()->map(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){
@@ -283,7 +349,15 @@ class ProductController extends Controller
     public function productListSeller(Request $request){
         if(!is_null($request->get('limit'))) {
             $products= tap(Product::where('user_id', auth()->id())->latest()->with('shop', 'size', 'instock')->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){
@@ -298,7 +372,15 @@ class ProductController extends Controller
             });
         }else{
             $products= Product::where('user_id', auth()->id())->latest()->with('shop', 'size', 'instock')->get()->map(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){

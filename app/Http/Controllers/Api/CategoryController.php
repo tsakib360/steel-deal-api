@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Size;
 use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -218,7 +219,15 @@ class CategoryController extends Controller
         $query = Product::query();
         if(!is_null($request->get('limit'))) {
             $products= tap($query->latest()->with('shop', 'size', 'instock')->where('category_id', $category_id)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){
@@ -233,7 +242,15 @@ class CategoryController extends Controller
             });
         }else{
             $products= $query->latest()->with('shop', 'size', 'instock')->where('category_id', $category_id)->get()->map(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){
@@ -264,7 +281,15 @@ class CategoryController extends Controller
         }
         if(!is_null($request->get('limit'))) {
             $products= tap($query->where('category_id', $category_id)->paginate($request->limit)->appends('limit', $request->limit))->transform(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){
@@ -279,7 +304,15 @@ class CategoryController extends Controller
             });
         }else{
             $products= $query->where('category_id', $category_id)->get()->map(function($product){
-                $product['size']= $product->size;
+//                $product['size']= $product->size;
+                $size_arr = array();
+                if(count($product['sizes']) != 0) {
+                    foreach ($product['sizes'] as $size) {
+                        $sz = Size::whereId($size)->first();
+                        array_push($size_arr, $sz);
+                    }
+                }
+                $product['sizes'] = $size_arr;
                 if(!is_null($product->instock)) {
                     $images=collect();
                     foreach ($product->instock->getMedia('product') as $img){

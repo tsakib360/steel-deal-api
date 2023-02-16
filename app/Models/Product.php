@@ -13,6 +13,7 @@ class Product extends Model
 
     protected $casts = [
         'measurements' => 'object',
+        'sizes' => 'array'
     ];
 
     public function instock(){
