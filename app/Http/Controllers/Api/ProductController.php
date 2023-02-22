@@ -103,13 +103,31 @@ class ProductController extends Controller
                     }
                 }
             }
+            $category= Category::whereId($product->category_id)->first();
+            if(is_null($category)) {
+                return  $this->ErrorResponse(400,'No category found ..!');
+            }
+            $obj['name'] = $request->name;
+            if(!empty($category->measurement_attributes)) {
+                foreach($category->measurement_attributes as $attr){
+                    if(!$request->has($attr)) {
+                        return $this->ErrorResponse(400, $attr.' is required!');
+                    }
+                    if(is_null($request->input($attr))) {
+                        return $this->ErrorResponse(400, $attr.' is required!');
+                    }
+                    $obj[$attr] = $request->input($attr);
+                }
+            }
+            unset($obj['name']);
             $product->update([
                 'name'=>!is_null($request->name) ? $request->name : $product->name,
                 'sizes'=>$size_arr,
                 'category_id'=>!is_null($request->category_id) ? $request->category_id : $product->category_id,
                 'price'=>!is_null($request->price) ? $request->price : $product->price,
                 'random'=>!is_null($request->random) ? $request->random : $product->random,
-                'clear_cut'=>!is_null($request->clear_cut) ? $request->clear_cut : $product->clear_cut
+                'clear_cut'=>!is_null($request->clear_cut) ? $request->clear_cut : $product->clear_cut,
+                'measurements' => !empty($obj) ? $obj : $product->measurements,
             ]);
             $stock = Instock::where('product_id', $product->id)->first();
             if(!is_null($stock)){
