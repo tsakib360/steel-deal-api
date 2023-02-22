@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         //Category
         Route::post('category/add',[CategoryController::class,'addCategorySeller']);
         Route::get('category/list',[CategoryController::class,'getCategorySeller']);
+        Route::post('category/delete/{category_id}',[CategoryController::class,'categoryDelete']);
 
         //Sub Category
         Route::post('sub-category/add',[CategoryController::class,'addSubCategorySeller']);

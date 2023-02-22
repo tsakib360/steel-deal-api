@@ -328,4 +328,15 @@ class CategoryController extends Controller
 
         return $this->response($products);
     }
+
+    public function categoryDelete($category_id)
+    {
+        $category = Category::whereId($category_id)->first();
+        if(is_null($category)) {
+            return  $this->ErrorResponse(400,'Category is not found ..!');
+        }
+        $category->clearMediaCollection('category_image');
+        $category->delete();
+        return $this->SuccessResponse(200,'Category is deleted ..!');
+    }
 }
