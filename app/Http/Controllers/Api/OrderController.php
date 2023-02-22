@@ -36,7 +36,7 @@ class OrderController extends Controller
             $validate= Validator::make($request->all(),[
                 'product_id'=>'required',
                 'stock_id'=>'required',
-                'size_id'=>'required',
+                'size_id'=>'required|array',
                 'qty'=>'required',
                 'price'=>'required',
             ]);
@@ -57,29 +57,30 @@ class OrderController extends Controller
             if(Auth::user()->role != 4) {
                 return $this->ErrorResponse(400,'You are not a customer ..!');
             }
-
-            $prev_cart = OrderItem::where('user_id', Auth::id())->where('stock_id', $request->stock_id)->where('order_id', null)->first();
-            if(is_null($prev_cart)) {
-                $cart = OrderItem::create([
-                    'user_id' => Auth::id(),
-                    'product_id' => $request->product_id,
-                    'stock_id' => $request->stock_id,
-                    'size_id' => $request->size_id,
-                    'qty' => $request->qty,
-                    'price' => $request->price,
-                    'total' => $request->qty * $request->price,
-                ]);
-            }else {
-                $cart = $prev_cart->update([
-                    'size_id' => $request->size_id,
-                    'qty' => $request->qty,
-                    'price' => $request->price,
-                    'total' => $request->qty * $request->price,
-                ]);
-            }
-
-            if(!$cart){
-                return $this->ErrorResponse(400,'Somethings went wrong while add cart ..!');
+            foreach($request->size_id as $size) {
+                $prev_cart = OrderItem::where('user_id', Auth::id())->where('size_id', $size)->where('stock_id', $request->stock_id)->where('order_id', null)->first();
+                if(is_null($prev_cart)) {
+                    $cart = OrderItem::create([
+                        'user_id' => Auth::id(),
+                        'product_id' => $request->product_id,
+                        'stock_id' => $request->stock_id,
+                        'size_id' => $size,
+                        'qty' => $request->qty,
+                        'price' => $request->price,
+                        'total' => $request->qty * $request->price,
+                    ]);
+                }else {
+                    $cart = $prev_cart->update([
+                        'size_id' => $size,
+                        'qty' => $request->qty,
+                        'price' => $request->price,
+                        'total' => $request->qty * $request->price,
+                    ]);
+                }
+                if(!$cart){
+                    DB::rollBack();
+                    return $this->ErrorResponse(400,'Somethings went wrong while add cart ..!');
+                }
             }
             DB::commit();
             return $this->SuccessResponse(200,'Cart successfully ..!');
