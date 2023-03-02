@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ShopController;
 use App\Http\Controllers\Api\SizeController;
 use App\Http\Controllers\Api\TruckController;
 use App\Http\Controllers\Api\ProductCounterController;
+use App\Http\Controllers\Api\AddressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +124,13 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get('product/counter/list',[ProductCounterController::class,'productCounterListByBuyer']);
         Route::post('product/counter',[ProductCounterController::class,'createProductCounter']);
         Route::post('product/counter/update/{counter_id}',[ProductCounterController::class,'productCounterPriceChangeByBuyer']);
+
+        //Address
+        Route::get('all-addresses',[AddressController::class,'getUserAddresses']);
+        Route::get('address/default',[AddressController::class,'getUserDefaultAddresses']);
+        Route::post('address/add',[AddressController::class,'addUserAddress']);
+        Route::post('address/update/{address_id}',[AddressController::class,'updateUserAddress']);
+        Route::post('address/delete/{address_id}',[AddressController::class,'deleteUserAddress']);
     });
 
     Route::group(['prefix' =>'admin'],function(){
