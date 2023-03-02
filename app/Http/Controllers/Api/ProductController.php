@@ -524,11 +524,57 @@ class ProductController extends Controller
 //        };
         $products = Product::where('name', 'like', "%$request->keyword%")
                     ->with('instock')
+                    ->has('instock')
                     ->orWhereHas('instock', function ($stock) use($request) {
                         $stock->where('basic_price', 'like', "%$request->keyword%");
                         $stock->orWhere('description', 'like', "%$request->keyword%");
                     })
-                    ->get();
+                    ->get()->map(function($product){
+//                        $product['size']= $product->size;
+                    $size_arr = array();
+                    if(count($product['sizes']) != 0) {
+                        foreach ($product['sizes'] as $size) {
+                            $sz = Size::whereId($size)->first();
+                            array_push($size_arr, $sz);
+                        }
+                    }
+                    $product['sizes'] = $size_arr;
+                    if(!is_null($product->instock)) {
+                        $images=collect();
+                        foreach ($product->instock->getMedia('product') as $img){
+                            $images->push($img->getFullUrl());
+                        }
+                        $product['images']= $images;
+                        $product['description']= $product['instock']['description'];
+                        $product['basic_price']= $product['instock']['basic_price'];
+                        unset($product['instock']['media']);
+                        unset($product['instock']['shop_id']);
+                        unset($product['instock']['user_id']);
+                        unset($product['instock']['product_id']);
+                        unset($product['instock']['size_id']);
+                        unset($product['instock']['description']);
+                        unset($product['instock']['created_at']);
+                        unset($product['instock']['updated_at']);
+                    }
+                    $product['category'] = $product->category;
+                    $product['shop'] = $product->shop;
+
+                    unset($product['size_id']);
+                    unset($product['price']);
+                    unset($product['shop_id']);
+                    unset($product['user_id']);
+                    unset($product['category_id']);
+                    unset($product['created_at']);
+                    unset($product['updated_at']);
+                    unset($product['category']['created_at']);
+                    unset($product['category']['updated_at']);
+                    unset($product['shop']['user_id']);
+                    unset($product['shop']['created_at']);
+                    unset($product['shop']['updated_at']);
+    //                unset($product['size']['created_at']);
+    //                unset($product['size']['updated_at']);
+                    return $product;
+            });
         return $this->SuccessResponse(200,'Search result ..!', $products);
     }
 

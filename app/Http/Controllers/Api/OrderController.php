@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Instock;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -95,16 +96,22 @@ class OrderController extends Controller
         DB::beginTransaction();
         try {
             $validate= Validator::make($request->all(),[
-                'delivery_charge'=>'required',
+                'address_id'=>'required',
+//                'delivery_charge'=>'required',
                 'payment_method'=>'required',
             ]);
             if($validate->fails()){
                 return  $this->ErrorResponse(400,$validate->messages());
             }
 
+            if(!Address::whereId($request->address_id)->where('user_id', Auth::id())->exists()) {
+                return $this->ErrorResponse(400,'No address found ..!');
+            }
+
             if(OrderItem::where('user_id', Auth::id())->where('order_id', null)->count() == 0) {
                 return $this->ErrorResponse(400,'No product found in your cart ..!');
             }
+            $delivery_charge = !is_null($request->delivery_charge) ? $request->delivery_charge : 0;
             $item_subtotal = OrderItem::where('user_id', Auth::id())->where('order_id', null)->sum('total');
 //            if($item_subtotal != $request->subtotal) {
 //                return $this->ErrorResponse(400,'Subtotal is not correct with cart total ..!');
@@ -112,7 +119,7 @@ class OrderController extends Controller
 
             $discount = !is_null($request->discount) ? $request->discount : 0;
             $gst = $item_subtotal * (7.5/100);
-            $grand_total = ($item_subtotal + $request->delivery_charge + $gst) - $discount;
+            $grand_total = ($item_subtotal + $delivery_charge + $gst) - $discount;
 //            if($grand_total != $request->grand_total) {
 //                return $this->ErrorResponse(400,'Grand total is not correct with cart total ..!');
 //            }
@@ -124,8 +131,9 @@ class OrderController extends Controller
             $order = Order::create([
                 'order_number' => $this->generateOrderNumber(),
                 'user_id' => Auth::id(),
+                'address_id' => $request->address_id,
                 'subtotal' => $item_subtotal,
-                'delivery_charge' => $request->delivery_charge,
+                'delivery_charge' => $delivery_charge,
                 'discount' => $discount,
                 'gst' => $gst,
                 'grand_total' => $grand_total,
